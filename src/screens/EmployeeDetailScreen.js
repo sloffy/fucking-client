@@ -8,6 +8,7 @@ import {
   Alert,
   ActivityIndicator,
   Image,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';

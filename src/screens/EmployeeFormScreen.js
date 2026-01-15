@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Alert,
   ActivityIndicator,
   Image,
+  Dimensions,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';

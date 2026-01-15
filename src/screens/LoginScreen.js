@@ -8,6 +8,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 

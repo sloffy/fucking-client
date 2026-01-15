@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';

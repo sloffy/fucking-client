@@ -10,6 +10,8 @@ import {
   FlatList,
   Vibration,
   RefreshControl,
+  Dimensions,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
@@ -271,6 +273,17 @@ const IssuesScreen = () => {
         />
       )}
       </View>
+      <Image
+        source={require('../../assets/mosgortrans_logo.png')}
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          left: 10,
+          width: Dimensions.get('window').width / 10,
+          height: Dimensions.get('window').width / 10,
+          resizeMode: 'contain',
+        }}
+      />
     </SafeAreaView>
   );
 };
