@@ -2,7 +2,7 @@ import api from '../config/api';
 
 function normalizeEmployee(emp) {
   if (!emp) return null;
-  const baseUrl = 'https://sloffy2.pythonanywhere.com/api';
+  const baseUrl = 'http://158.160.9.21:5000/api';
   return {
     id: emp.id,
     fullName: emp.full_name ?? emp.fullName,
@@ -71,7 +71,7 @@ export const employeeService = {
   },
 
   getPhotoUrl: (id) => {
-    return `https://sloffy2.pythonanywhere.com/api/employees/${id}/photo`;
+    return `http://158.160.9.21:5000/api/employees/${id}/photo`;
   },
 };
 

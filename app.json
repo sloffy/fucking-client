@@ -31,7 +31,11 @@
         "WRITE_EXTERNAL_STORAGE",
         "CAMERA"
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3d5f15c2-1125-4fde-87e2-f273252ceef8"
+      }
     }
   }
 }
-
