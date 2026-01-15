@@ -34,7 +34,7 @@ yarn install
 
 ### Настройка API
 
-API сервер уже настроен и доступен по адресу: `https://sloffy2.pythonanywhere.com/api`
+API сервер уже настроен и доступен по адресу: `http://158.160.9.21:5000/api`
 
 Если необходимо изменить URL API, откройте файл `src/config/api.js` и измените значение `API_BASE_URL`.
 
