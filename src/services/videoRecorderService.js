@@ -50,4 +50,3 @@ export const videoRecorderService = {
     return response.data;
   },
 };
-

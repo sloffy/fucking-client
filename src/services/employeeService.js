@@ -74,4 +74,3 @@ export const employeeService = {
     return `https://sloffy2.pythonanywhere.com/api/employees/${id}/photo`;
   },
 };
-

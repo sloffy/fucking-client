@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
+import { Audio } from 'expo-av';
 import { videoRecorderService } from '../services/videoRecorderService';
 
 const VideoRecorderFormScreen = () => {
@@ -32,19 +33,20 @@ const VideoRecorderFormScreen = () => {
     }
   }, [id]);
 
-  const loadRecorder = async () => {
-    setInitialLoading(true);
+  const playNotificationSound = async () => {
     try {
-      const data = await videoRecorderService.getById(id);
-      setFormData({
-        number: data.number || '',
-        status: data.status || 'available',
+      const { sound } = await Audio.Sound.createAsync(
+        require('../../assets/new-notification-3-398649.mp3')
+      );
+      await sound.playAsync();
+      // Освобождаем звук после воспроизведения
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
       });
     } catch (error) {
-      Alert.alert('Ошибка', 'Не удалось загрузить данные видеорегистратора');
-      navigation.goBack();
-    } finally {
-      setInitialLoading(false);
+      console.log('Ошибка воспроизведения звука:', error);
     }
   };
 
@@ -61,6 +63,8 @@ const VideoRecorderFormScreen = () => {
       } else {
         // При создании статус всегда "available", без выбора пользователем
         await videoRecorderService.create({ number: formData.number, status: 'available' });
+        // Воспроизвести звук уведомления при добавлении
+        await playNotificationSound();
       }
       navigation.goBack();
     } catch (error) {
