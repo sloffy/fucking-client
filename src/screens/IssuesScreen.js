@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
+import { Audio } from 'expo-av';
 import { useAuth } from '../context/AuthContext';
 import { employeeService } from '../services/employeeService';
 import { videoRecorderService } from '../services/videoRecorderService';
@@ -67,6 +68,23 @@ const IssuesScreen = () => {
     }
   };
 
+  const playNotificationSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../../assets/new-notification-3-398649.mp3')
+      );
+      await sound.playAsync();
+      // Освобождаем звук после воспроизведения
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (error) {
+      console.log('Ошибка воспроизведения звука:', error);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!selectedEmployee || !selectedRecorder) {
       Alert.alert('Ошибка', 'Выберите сотрудника и видеорегистратор');
@@ -92,6 +110,8 @@ const IssuesScreen = () => {
         await issueService.return(selectedEmployee, selectedRecorder);
         Alert.alert('Успех', 'Видеорегистратор успешно возвращен');
       }
+      // Воспроизвести звук уведомления
+      await playNotificationSound();
       Vibration.vibrate(100);
       setSelectedEmployee('');
       setSelectedRecorder('');

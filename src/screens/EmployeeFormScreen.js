@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { Audio } from 'expo-av';
 import { employeeService } from '../services/employeeService';
 
 const EmployeeFormScreen = () => {
@@ -55,6 +56,23 @@ const EmployeeFormScreen = () => {
     }
   };
 
+  const playNotificationSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../../assets/new-notification-3-398649.mp3')
+      );
+      await sound.playAsync();
+      // Освобождаем звук после воспроизведения
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (error) {
+      console.log('Ошибка воспроизведения звука:', error);
+    }
+  };
+
   const handleSave = async () => {
     if (!formData.fullName.trim() || !formData.employeeNumber.trim()) {
       Alert.alert('Ошибка', 'Заполните обязательные поля (ФИО и табельный номер)');
@@ -68,6 +86,8 @@ const EmployeeFormScreen = () => {
         employee = await employeeService.update(id, formData);
       } else {
         employee = await employeeService.create(formData);
+        // Воспроизвести звук уведомления при добавлении
+        await playNotificationSound();
       }
 
       const employeeId = id || employee?.id;

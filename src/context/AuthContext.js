@@ -22,8 +22,13 @@ export const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setIsAuthenticated(true);
     } catch (error) {
-      // Токен невалиден или истек
-      await authService.logout();
+      // Если нет error.response — это сеть/SSL/DNS ошибка, не удаляем токен
+      if (!error.response) {
+        console.log('Ошибка сети при проверке аутентификации:', error.message);
+      } else {
+        // Токен невалиден или истек
+        await authService.logout();
+      }
     } finally {
       setLoading(false);
     }
