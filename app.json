@@ -10,6 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "icon": "./assets/mosgortrans_logo.png",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -23,7 +24,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/mosgortrans_logo.png",
+        "backgroundColor": "transparent"
       },
       "package": "com.videorecorder.management",
       "permissions": [
