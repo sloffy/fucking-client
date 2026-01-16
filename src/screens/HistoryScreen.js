@@ -80,6 +80,30 @@ const HistoryScreen = () => {
     });
   };
 
+  const handleDeleteAll = async () => {
+    Alert.alert(
+      'Подтверждение',
+      'Вы уверены, что хотите удалить всю историю? Это действие необратимо.',
+      [
+        { text: 'Отмена', style: 'cancel' },
+        {
+          text: 'Удалить',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const ids = history.map(item => item.id);
+              await issueService.deleteAll(ids);
+              Alert.alert('Успех', 'Вся история удалена.');
+              loadHistory(); // Обновить список
+            } catch (error) {
+              Alert.alert('Ошибка', 'Не удалось удалить историю: ' + error.message);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   const renderHistoryItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -118,6 +142,10 @@ const HistoryScreen = () => {
       >
         <Ionicons name="filter" size={20} color="#007AFF" />
         <Text style={styles.filterButtonText}>Фильтры</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleDeleteAll} style={styles.deleteButton}>
+        <Text style={styles.deleteButtonText}>Удалить всю историю</Text>
       </TouchableOpacity>
 
       <FlatList
@@ -276,6 +304,17 @@ const styles = StyleSheet.create({
   filterButtonText: {
     color: '#007AFF',
     fontSize: 16,
+    fontWeight: '600',
+  },
+  deleteButton: {
+    padding: 10,
+    backgroundColor: 'red',
+    margin: 10,
+    borderRadius: 8,
+  },
+  deleteButtonText: {
+    color: 'white',
+    textAlign: 'center',
     fontWeight: '600',
   },
   list: {

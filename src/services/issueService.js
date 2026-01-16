@@ -47,5 +47,34 @@ export const issueService = {
     const list = response.data?.issues ?? [];
     return list.map(normalizeIssue).filter(Boolean);
   },
+
+  delete: async (id) => {
+    if (!id || (typeof id !== 'string' && typeof id !== 'number')) {
+      throw new Error('Invalid ID provided for deletion');
+    }
+    try {
+      const response = await api.delete(`/issues/${id}`);
+      return response.data; // Или просто true/false в зависимости от API
+    } catch (error) {
+      console.error('Error deleting issue:', error);
+      throw error; // Перебросьте для обработки выше
+    }
+  },
+
+  deleteAll: async (ids) => {
+    if (!Array.isArray(ids) || ids.length === 0) {
+      throw new Error('Invalid IDs array provided for deletion');
+    }
+    const results = [];
+    for (const id of ids) {
+      try {
+        const result = await this.delete(id);
+        results.push({ id, success: true, data: result });
+      } catch (error) {
+        results.push({ id, success: false, error: error.message });
+      }
+    }
+    return results;
+  },
 };
 
