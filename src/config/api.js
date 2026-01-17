@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Базовый URL API
-const API_BASE_URL = 'http://158.160.9.21:5000/api';
+const API_BASE_URL = 'https://sloffy-server.duckdns.org/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

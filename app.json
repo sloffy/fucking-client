@@ -25,22 +25,20 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/mosgortrans_logo.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.videorecorder.management",
       "permissions": [
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "CAMERA"
-      ]
+      ],
+      "usesCleartextTraffic": true
     },
     "extra": {
       "eas": {
         "projectId": "3d5f15c2-1125-4fde-87e2-f273252ceef8"
       }
-    },
-    "plugins": [
-      "expo-font"
-    ]
+    }
   }
 }
